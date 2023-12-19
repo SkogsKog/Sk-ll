@@ -1,0 +1,79 @@
+<svg id="icsCanvas" width="770" height="560">
+   <defs>
+      <filter id="gradiantRaise" filterUnits="userSpaceOnUse" x="0" y="0" width="740" height="540">
+         <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+         <feOffset in="blur" dx="4" dy="4" result="offsetBlur"/>
+         <feSpecularLighting in="blur" surfaceScale="5" specularConstant=".75" 
+                          specularExponent="20" lighting-color="#777777"  
+                          result="specOut">
+                          <fePointLight x="-5000" y="-10000" z="20000"/>
+         </feSpecularLighting>
+         <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut"/>
+         <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic" 
+                          k1="0" k2="1" k3="1" k4="0" result="litPaint"/>
+         <feMerge>
+            <feMergeNode in="offsetBlur"/>
+            <feMergeNode in="litPaint"/>
+         </feMerge>
+      </filter>
+   </defs>
+   <g filter="url(#gradiantRaise)" id="icsFrame" width="740" height="540">
+      <path    id+"baseColor"    d="M20 20 H300 L80 490 H20 Z" 
+         style="fill:#386863;stroke:#33aa99;stroke-width:0;"   />
+      <path    id+"noteColor"    d="M300 20 H380 L480 490 H80 Z" 
+         style="fill:#88aa11;stroke:#99aa33;stroke-width:0;"   />
+      <path    id+"shadowColor"  d="M380 20 H680 L560 490 H480 Z" 
+         style="fill:#838387;stroke:#838387;stroke-width:0;"   />
+      <path    id+"lightColor"   d="M680 20 H760 L760 490 H560 Z" 
+         style="fill:#aaaaaa;stroke:#aaaaaa;stroke-width:0;"   />
+   </g>
+   <text id="size"      x="60"  y="68"  fill="yellow" font-family="Papyrus">size :: </text>
+   <circle id="rStatus" cx="160"  cy="383" r="4" width="20"  height="16" 
+      style="fill:white;stroke:grey;stroke-width:3;opacity:0.5"  />
+      <text id="status" x="170" y="388" fill="#aaaaaa">status :: </text>
+</svg>
+
+
+Filters:
+________
+https://www.smashingmagazine.com/2015/05/why-the-svg-filter-is-awesome/
+<def>                  - is the reference container for the filtered effect
+<filter>               - container for filters
+
+<feOffset>             - moves base image
+<feColorMatrix>        - color transforming matrix
+<feGaussianBlur>       - for blurring images
+<feComponentTransfer>  - remaps component data
+<feConvolveMatrix>     - combines pixels in the input image with neighboring pixels [edge effects]
+<feDisplacementMap>    - uses pixel values from image [in2] to spatially displace it with [in]
+<feImage>              - provides an outside image
+<feMorphology>         - flattens image
+<feTile>               - adds a tiled imagery to another image
+<feBlend>              - blends two images
+<feMerge>              - image is layered on another image / merge layers?
+<feComposite>          - combines two images with compositing operation reference values
+<feSpecularLighting>   - complex lighting effect from a central z perspective
+<feDiffuseLighting>    - creates an ambient lighting effect - requires multiple light sources
+<feTurbulence>         - allows the synthesis of artificial textures like clouds or marble
+<feDistantLight>       - defines a light source
+<fePointLight>         - light point reference - used with <feDiffuseLighting> or <feSpecularLighting>.
+<feFlood>              - fills region with color and opacity 
+<feSpotLight>          - creates a narrow lighting effect
+
+in="SourceAlpha"       - causes effect to cover the whole source
+<stop>                 - creates a stop for a gradient blend
+
+External resources (e.g. images, stylesheets) cannot be loaded, though they can be used if inlined through data: Ls.
+:visited-link styles aren't rendered.
+Platform-native widget styling (based on OS theme) is disabled.
+Note that the above restrictions are specific to image contexts; they don't apply when SVG content is viewed directly, or when it's embedded as a document via the <iframe>, <object>, or <embed> elements.
+
+JS - (JS will work inside the HTML and separately - not with the svg separate??) 
+inside the same <html> tag - the <svg> and the <script> elements will interact
+Most common is JS externally used while the <svg> element is inside the <html>
+(not tested) external JS and internal <svg> to the <html>, then the JS has to have an XML wrapper <![CDATA[  ...js...  ]]>
+it is possible to embed the js inside the svg file for a single animated file - transferable.
+(not tested) CSS will not allow interaction in the case of using the svg with an <img> tag or background image
+(not tested) Externally they can be added by <object> <embed> <iframe>, and manipulated.
+
+EOL: This is an API document
